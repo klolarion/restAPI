@@ -2,6 +2,7 @@ package com.spring.restAPI.service;
 
 
 import com.spring.restAPI.domain.Member;
+import com.spring.restAPI.dto.RegisterDto;
 import com.spring.restAPI.dto.ResponseDto;
 import com.spring.restAPI.repository.MemberRepository;
 import jakarta.persistence.EntityManager;
@@ -36,10 +37,10 @@ public class MemberService {
         }
     }
 
-    public ResponseDto<Member> register(Member member) {
+    public ResponseDto<Member> register(RegisterDto registerDto) {
         ResponseDto<Member> result = new ResponseDto<>();
         try {
-            Member savedMember = memberRepository.save(new Member(member.getEmail(), member.getPassword(), member.getMemberName()));
+            Member savedMember = memberRepository.save(new Member(registerDto.getEmail(), registerDto.getPassword(), registerDto.getName()));
             result.setResultCode(0);
             result.setBody("User created");
             result.setEntity(savedMember);
@@ -53,11 +54,11 @@ public class MemberService {
         }
     }
 
-    public ResponseDto<Member> modifyUser(Member memberSet){
+    public ResponseDto<Member> modifyUser(String id){
         ResponseDto<Member> result = new ResponseDto<>();
         Member member = null;
         try {
-            Optional<Member> memberOptional = memberRepository.findById(memberSet.getMemberId());
+            Optional<Member> memberOptional = memberRepository.findById(Long.valueOf(id));
             if (memberOptional.isPresent()) {
                 member = memberOptional.get();
                 member.disableUser();
