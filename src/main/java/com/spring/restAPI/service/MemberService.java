@@ -63,7 +63,7 @@ public class MemberService {
                 member.disableUser();
             }
             result.setResultCode(0);
-            result.setBody("Member modified");
+            result.setBody("Modify success");
             result.setEntity(null);
 
         }catch (Exception e){

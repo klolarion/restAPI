@@ -34,11 +34,20 @@ public class MemberController {
 
     @PutMapping("/modify/{id}")
     public ResponseEntity<ResponseDto<Member>> modifyUser(@PathVariable String id, @RequestBody Member member){
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        ResponseDto<Member> result = memberService.modifyUser(member);
+
+        if(result.getResultCode()==0){
+            ResponseEntity.status(HttpStatus.OK).body(result);
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
     }
 
     @PutMapping("/disable/{id}")
     public ResponseEntity<ResponseDto<Member>> disableUser(@PathVariable String id){
+        ResponseDto<Member> result = memberService.disableUser(id);
+        if(result.getResultCode()==0){
+            ResponseEntity.status(HttpStatus.OK).body(result);
+        }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
 }

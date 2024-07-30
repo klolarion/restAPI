@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: restAPI
+  datasource:
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: sa
+    url:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
