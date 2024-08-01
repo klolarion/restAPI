@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@Controller("/th")
+@Controller
 @Slf4j
 @RequiredArgsConstructor
 public class ThymeleafController {
@@ -21,12 +21,15 @@ public class ThymeleafController {
     @GetMapping("/")
     public String hello(Model model) {
         log.info("* Thymeleaf get members");
+        System.out.println("/");
         model.addAttribute("users", memberService.getAllMembers());
         return "hello";
     }
 
     @PostMapping("/add")
-    public String addUser(@RequestParam String name) {
+    public String addUser(@RequestParam("name") String name) {
+        System.out.println("/add : " + name );
+        log.info("* Thymeleaf get members");
         RegisterDto registerDto = new RegisterDto(name, "123123", "email@email");
         memberService.register(registerDto);
         return "redirect:/";
