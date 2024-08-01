@@ -18,14 +18,14 @@ public class ThymeleafController {
     private final MemberService memberService;
 
     //thymeleaf
-    @GetMapping("/")
+    @GetMapping("/th/")
     public String hello(Model model) {
         log.info("* Thymeleaf get members");
         model.addAttribute("users", memberService.getAllMembers());
         return "hello";
     }
 
-    @PostMapping("/add")
+    @PostMapping("/th/add")
     public String addUser(@RequestParam String name) {
         RegisterDto registerDto = new RegisterDto(name, "123123", "email@email");
         memberService.register(registerDto);

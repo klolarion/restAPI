@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 public class MemberController {
     private final MemberService memberService;
 
-    
+
 
     @GetMapping("/{id}")
     public ResponseEntity<ResponseDto<Member>> getMember(@PathVariable String id) {
