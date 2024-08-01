@@ -10,5 +10,11 @@ spring:
     hibernate:
       ddl-auto: validate
     show-sql: true
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML
+    encoding: utf-8
 server:
   port: 8080

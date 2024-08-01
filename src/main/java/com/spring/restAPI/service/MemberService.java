@@ -9,6 +9,7 @@ import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -107,5 +108,10 @@ public class MemberService {
         em.flush();
         em.clear();
         return result;
+    }
+
+    public List<Member> getAllMembers() {
+        return memberRepository.findAll();
+
     }
 }

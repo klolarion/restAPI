@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="<http://www.thymeleaf.org>">
+<head>
+    <title>Hello World</title>
+</head>
+<body>
+<h1>Hello World with Thymeleaf!</h1>
+
+<form action="/add" method="post">
+    <input type="text" name="name" placeholder="Enter your name">
+    <button type="submit">Add</button>
+</form>
+
+<h2>Users:</h2>
+<ul>
+    <li th:each="user : ${users}" th:text="${user.name}">User name</li>
+</ul>
+</body>
+</html>

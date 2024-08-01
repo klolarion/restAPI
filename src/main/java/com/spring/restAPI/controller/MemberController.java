@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,6 +16,20 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class MemberController {
     private final MemberService memberService;
+
+    //thymeleaf
+    @GetMapping("/")
+    public String hello(Model model) {
+        model.addAttribute("users", memberService.getAllMembers());
+        return "hello";
+    }
+
+    @PostMapping("/add")
+    public String addUser(@RequestParam String name) {
+        RegisterDto registerDto = new RegisterDto(name, "123123", "email@email");
+        memberService.register(registerDto);
+        return "redirect:/";
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<ResponseDto<Member>> getMember(@PathVariable String id) {
