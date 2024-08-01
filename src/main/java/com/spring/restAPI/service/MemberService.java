@@ -54,18 +54,19 @@ public class MemberService {
         }
     }
 
-    public ResponseDto<Member> modifyUser(String id){
+    public ResponseDto<Member> modifyUser(Member memberU){
         ResponseDto<Member> result = new ResponseDto<>();
         Member member = null;
         try {
-            Optional<Member> memberOptional = memberRepository.findById(Long.valueOf(id));
+            Optional<Member> memberOptional = memberRepository.findByEmail(memberU.getEmail());
             if (memberOptional.isPresent()) {
                 member = memberOptional.get();
-                member.disableUser();
+                member.changeEmail(memberU.getEmail());
+                member.changePassword(memberU.getPassword());
             }
             result.setResultCode(0);
             result.setBody("Modify success");
-            result.setEntity(null);
+            result.setEntity(member);
 
         }catch (Exception e){
             e.printStackTrace();

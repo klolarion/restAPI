@@ -5,18 +5,22 @@ import com.spring.restAPI.dto.RegisterDto;
 import com.spring.restAPI.dto.ResponseDto;
 import com.spring.restAPI.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController("/member")
+@Slf4j
 @RequiredArgsConstructor
 public class MemberController {
     private final MemberService memberService;
 
     @GetMapping("/{id}")
     public ResponseEntity<ResponseDto<Member>> getMember(@PathVariable String id) {
+        log.info("* Get member");
         ResponseDto<Member> result = memberService.getMember(id);
+        log.debug(result.toString());
         if (result.getResultCode() == 0) {
             return ResponseEntity.status(HttpStatus.OK).body(result);
         }
@@ -43,8 +47,8 @@ public class MemberController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ResponseDto<Member>> modifyUser(@PathVariable String id){
-        ResponseDto<Member> result = memberService.modifyUser(id);
+    public ResponseEntity<ResponseDto<Member>> modifyUser(@RequestBody Member member){
+        ResponseDto<Member> result = memberService.modifyUser(member);
 
         if(result.getResultCode()==0){
             ResponseEntity.status(HttpStatus.OK).body(result);
