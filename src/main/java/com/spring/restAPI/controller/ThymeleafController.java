@@ -11,21 +11,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@Controller
+@Controller("/th")
 @Slf4j
 @RequiredArgsConstructor
 public class ThymeleafController {
     private final MemberService memberService;
 
     //thymeleaf
-    @GetMapping("/th/")
+    @GetMapping("/")
     public String hello(Model model) {
         log.info("* Thymeleaf get members");
         model.addAttribute("users", memberService.getAllMembers());
         return "hello";
     }
 
-    @PostMapping("/th/add")
+    @PostMapping("/add")
     public String addUser(@RequestParam String name) {
         RegisterDto registerDto = new RegisterDto(name, "123123", "email@email");
         memberService.register(registerDto);
